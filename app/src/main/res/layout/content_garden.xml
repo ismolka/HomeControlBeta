@@ -1,0 +1,136 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    android:theme="@style/AppTheme.NoActionBar"
+    tools:context=".GardenActivity">
+
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="286dp"
+        app:srcCompat="@drawable/grass" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elegantTextHeight="true"
+        android:elevation="0dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="OGRÓD"
+        android:textColor="@android:color/background_light"
+        android:textColorLink="@android:color/background_light"
+        android:textSize="50sp"
+        android:layout_alignBottom="@+id/imageView4"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="21dp"
+        android:layout_marginBottom="18dp" />
+
+    <SeekBar
+        android:id="@+id/seekBarHumidity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/floatingActionButton2"
+        android:layout_alignStart="@+id/textView11"
+        android:layout_below="@+id/textView11"
+        android:layout_marginTop="14dp"
+        android:progress="35" />
+
+    <Switch
+        android:id="@+id/switchGardenLight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/switchWater"
+        android:layout_below="@+id/switchWater"
+        android:layout_marginTop="15dp"
+        android:checked="false"
+        android:splitTrack="false"
+        android:switchMinWidth="50dp"
+        android:text="OŚWIETLENIE OGRODU   "
+        tools:checked="false" />
+
+    <Switch
+        android:id="@+id/switchWater"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/seekBarHumidity"
+        android:layout_marginTop="19dp"
+        android:layout_toStartOf="@+id/textView9"
+        android:switchMinWidth="50dp"
+        android:text="FONTANNA   " />
+
+    <TextView
+        android:id="@+id/textViewCurrentHumidity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="20"
+        android:textSize="60sp"
+        android:layout_below="@+id/textView6"
+        android:layout_alignStart="@+id/textView6"
+        android:layout_marginTop="33dp" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="%"
+        android:textSize="60sp"
+        android:layout_alignBaseline="@+id/textViewCurrentHumidity"
+        android:layout_alignBottom="@+id/textViewCurrentHumidity"
+        android:layout_toEndOf="@+id/textViewCurrentHumidity" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="wilgotności gleby"
+        android:textSize="24sp"
+        android:layout_alignBaseline="@+id/textView8"
+        android:layout_alignBottom="@+id/textView8"
+        android:layout_toEndOf="@+id/textView6" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textViewCurrentHumidity"
+        android:layout_below="@+id/textViewCurrentHumidity"
+        android:text="zraszacze uruchomią się przy: "
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textViewControlHumidity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="99"
+        android:textSize="18sp"
+        android:layout_alignBaseline="@+id/textView11"
+        android:layout_alignBottom="@+id/textView11"
+        android:layout_toEndOf="@+id/textView11" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textViewControlHumidity"
+        android:layout_toEndOf="@+id/textViewControlHumidity"
+        android:text="%"
+        android:textSize="18sp" />
+
+    <Switch
+        android:id="@+id/switchGateLock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/switchWater"
+        android:layout_alignBottom="@+id/switchWater"
+        android:layout_alignEnd="@+id/seekBarHumidity"
+        android:text="BLOKADA BRAMY   " />
+
+</RelativeLayout>

@@ -1,0 +1,104 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    android:theme="@style/AppTheme.NoActionBar"
+    tools:context=".SettingsActivity">
+
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="286dp"
+        app:srcCompat="@drawable/connect" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView4"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="18dp"
+        android:layout_marginStart="21dp"
+        android:elegantTextHeight="true"
+        android:elevation="0dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="KONFIGURACJA"
+        android:textColor="?android:attr/textColorPrimaryInverseNoDisable"
+        android:textColorLink="@android:color/background_light"
+        android:textSize="50sp" />
+
+    <CheckBox
+        android:id="@+id/checkALERT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:checked="true"
+        android:text="Wyświetlaj powiadomienia"
+        android:layout_below="@+id/textView6"
+        android:layout_alignStart="@+id/textView6" />
+
+    <SeekBar
+        android:id="@+id/seekBarRangeTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView4"
+        android:layout_below="@+id/textView4"
+        android:layout_marginTop="14dp"
+        android:minHeight="22dp"
+        android:minWidth="300dp"
+        android:pointerIcon="none"
+        android:progress="60" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/checkALERT"
+        android:layout_below="@+id/checkALERT"
+        android:layout_marginTop="15dp" />
+
+    <TextView
+        android:id="@+id/textViewCurrentRange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10"
+        android:textColor="@android:color/background_dark"
+        android:layout_alignBaseline="@+id/checkTEMP"
+        android:layout_alignBottom="@+id/checkTEMP"
+        android:layout_toEndOf="@+id/checkTEMP" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textViewCurrentRange"
+        android:layout_toEndOf="@+id/textViewCurrentRange"
+        android:text="% od zadanej"
+        android:textColor="@android:color/background_dark"
+        android:textSize="14sp" />
+
+    <CheckBox
+        android:id="@+id/checkMOTION"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/seekBarRangeTemperature"
+        android:layout_below="@+id/seekBarRangeTemperature"
+        android:layout_marginTop="14dp"
+        android:text="Gdy zostanie wykryty ruch" />
+
+    <CheckBox
+        android:id="@+id/checkTEMP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gdy temperatura różni się o "
+        android:layout_alignBaseline="@+id/textView4"
+        android:layout_alignBottom="@+id/textView4"
+        android:layout_alignStart="@+id/textView4" />
+
+</RelativeLayout>

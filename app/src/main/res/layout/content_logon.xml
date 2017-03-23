@@ -1,0 +1,70 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    android:theme="@style/AppTheme.NoActionBar"
+    tools:context=".LogonActivity">
+
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="286dp"
+        app:srcCompat="@drawable/connect" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView4"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="18dp"
+        android:layout_marginStart="21dp"
+        android:elegantTextHeight="true"
+        android:elevation="0dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="LOGOWANIE"
+        android:textColor="?android:attr/textColorPrimaryInverseNoDisable"
+        android:textColorLink="@android:color/background_light"
+        android:textSize="50sp" />
+
+    <EditText
+        android:id="@+id/editTextPIN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView6"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="72dp"
+        android:ems="10"
+        android:inputType="numberPassword"
+        android:text="0000" />
+
+    <Button
+        android:id="@+id/buttonOK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_below="@+id/editTextPIN"
+        android:layout_marginTop="26dp"
+        android:width="@dimen/nav_header_height"
+        android:background="@android:color/holo_blue_light"
+        android:minHeight="30dp"
+        android:text="AKCEPTUJ"
+        android:textColor="@android:color/background_light" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView6"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:text="Wprowadź PIN"
+        android:textSize="24sp" />
+
+</RelativeLayout>

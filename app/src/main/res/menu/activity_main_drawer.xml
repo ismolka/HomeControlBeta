@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="MENU GŁÓWNE"/>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Dom" />
+        <item
+            android:id="@+id/nav_garden"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Ogród" />
+        <item
+            android:id="@+id/nav_children"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Pokój dzieci" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_menu_share"
+            android:title="Wykresy" />
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Ustawienia" />
+            <item
+                android:id="@+id/nav_connect"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Połączenie" />
+            <item
+                android:id="@+id/nav_logon"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Logowanie" />
+    </group>
+</menu>

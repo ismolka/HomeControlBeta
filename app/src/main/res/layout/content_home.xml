@@ -1,0 +1,137 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    android:theme="@style/AppTheme.NoActionBar"
+    tools:context=".HomeActivity">
+
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="286dp"
+        app:srcCompat="@drawable/room" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView4"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="18dp"
+        android:layout_marginStart="21dp"
+        android:elegantTextHeight="true"
+        android:elevation="0dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="DOM"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textColorLink="@android:color/background_light"
+        android:textSize="50sp" />
+
+    <SeekBar
+        android:id="@+id/seekBarTemperature"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/floatingActionButton2"
+        android:layout_alignStart="@+id/textView11"
+        android:layout_below="@+id/textView11"
+        android:layout_marginTop="14dp"
+        android:progress="35" />
+
+    <Switch
+        android:id="@+id/switchMEDIA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/switchMOTION"
+        android:layout_below="@+id/switchMOTION"
+        android:layout_marginTop="15dp"
+        android:checked="false"
+        android:splitTrack="false"
+        android:switchMinWidth="50dp"
+        android:text="ZASILANIE ANTEN   "
+        tools:checked="false" />
+
+    <Switch
+        android:id="@+id/switchMOTION"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView6"
+        android:layout_below="@+id/seekBarTemperature"
+        android:layout_marginTop="22dp"
+        android:switchMinWidth="50dp"
+        android:text="CZUJNIKI RUCHU   " />
+
+    <TextView
+        android:id="@+id/textViewCurrentTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="20"
+        android:textSize="60sp"
+        android:layout_below="@+id/textView6"
+        android:layout_alignStart="@+id/textView6"
+        android:layout_marginTop="28dp" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:cursorVisible="false"
+        android:text="°"
+        android:textSize="60sp"
+        android:layout_alignBaseline="@+id/textViewCurrentTemp"
+        android:layout_alignBottom="@+id/textViewCurrentTemp"
+        android:layout_toEndOf="@+id/textViewCurrentTemp" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="C"
+        android:textSize="60sp"
+        android:layout_alignBaseline="@+id/textView8"
+        android:layout_alignBottom="@+id/textView8"
+        android:layout_toEndOf="@+id/textView8" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textViewCurrentTemp"
+        android:layout_below="@+id/textViewCurrentTemp"
+        android:text="preferowana temperatura wewnątrz: "
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textViewControlTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="99"
+        android:textSize="18sp"
+        android:layout_alignBaseline="@+id/textView11"
+        android:layout_alignBottom="@+id/textView11"
+        android:layout_toEndOf="@+id/textView11" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textViewControlTemp"
+        android:layout_toEndOf="@+id/textViewControlTemp"
+        android:text="°C"
+        android:textSize="18sp" />
+
+    <Switch
+        android:id="@+id/switchLIGHT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/switchMEDIA"
+        android:layout_marginStart="26dp"
+        android:layout_toEndOf="@+id/switchMEDIA"
+        android:text="OŚWIETLENIE   " />
+
+</RelativeLayout>

@@ -1,0 +1,80 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    android:theme="@style/AppTheme.NoActionBar"
+    tools:context=".ConnectActivity">
+
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="286dp"
+        app:srcCompat="@drawable/connect" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView4"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="18dp"
+        android:layout_marginStart="21dp"
+        android:elegantTextHeight="true"
+        android:elevation="0dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="POŁĄCZENIE"
+        android:textColor="?android:attr/textColorPrimaryInverseNoDisable"
+        android:textColorLink="@android:color/background_light"
+        android:textSize="50sp" />
+
+    <Switch
+        android:id="@+id/switchBtState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="Bluetooth ON/OFF   "
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="203dp"
+        android:layout_marginBottom="225dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignStart="@+id/switchBT"
+        android:layout_below="@+id/switchBT"
+        android:layout_marginTop="19dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ListView
+                android:id="@+id/BtClientList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/buttonConnection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/switchBT"
+        android:layout_alignBottom="@+id/switchBT"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="36dp"
+        android:background="@android:color/holo_blue_light"
+        android:minHeight="30dp"
+        android:minWidth="125dp"
+        android:text="POŁĄCZ"
+        android:textColor="@android:color/background_light" />
+
+</RelativeLayout>
