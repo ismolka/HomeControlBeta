@@ -1,5 +1,7 @@
 package com.example.irek.homecontrolbetaversion.utils;
 
+import android.util.Log;
+
 import com.example.irek.homecontrolbetaversion.data.model.DataToSend;
 import com.example.irek.homecontrolbetaversion.data.model.DeviceData;
 import com.example.irek.homecontrolbetaversion.data.model.Request;
@@ -19,6 +21,7 @@ import java.io.IOException;
  */
 
 public class MessageParser {
+    private static final String TAG = "MessageParser";
     public static boolean isJSONValid(String test) {
         try {
             new JSONObject(test);
@@ -54,6 +57,7 @@ public class MessageParser {
         Moshi moshi = new Moshi.Builder().build();
         if(obj instanceof DataToSend) {
             JsonAdapter<DataToSend> jsonAdapter = moshi.adapter(DataToSend.class);
+            Log.d(TAG, jsonAdapter.toJson((DataToSend) obj));
             return jsonAdapter.toJson((DataToSend) obj);
         } else if ( obj instanceof Request ) {
             JsonAdapter<Request> jsonAdapter = moshi.adapter(Request.class);

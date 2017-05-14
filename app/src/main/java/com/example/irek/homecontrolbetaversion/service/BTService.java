@@ -34,7 +34,7 @@ public class BTService extends Service {
     private BluetoothAdapter mBluetoothAdapter = null;
     private BluetoothChatService mBluetoothChatService = null;
     private String mConnectedDeviceName = null;
-    private String deviceMACAddress = "3C:BB:FD:6E:DF:F2"; // mama tel mac addr: 3C:BB:FD:6E:DF:F2 ; irek mac addr: 20:16:11:07:59:62
+    private String deviceMACAddress = "20:16:11:07:59:62"; // mama tel mac addr: 3C:BB:FD:6E:DF:F2 ; irek mac addr: 20:16:11:07:59:62
     private Thread mThread = null;
     private Thread requestThread = null;
 
