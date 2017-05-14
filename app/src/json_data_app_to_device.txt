@@ -1,0 +1,6 @@
+{"blokadaBramy":true,"czujnikRuchu":true,"fontanna":false,"internetSwitch":false,"jasnoscOswietlenia":65,"oswietlenieDom":false,"oswietlenieOgrodu":false,"prefTempDom":27,"prefTempDzieci":33,"tvsatSwitch":true,"uruchomienieZraszaczy":24,"zasilanieAnten":true}
+
+
+
+// Aplikcja wysy³a za poœrednictwem BT do arduino rozkazy steruj¹ce
+// Przyk³adowe dane wys³ane /\
