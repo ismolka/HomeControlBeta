@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/background_light"
     android:theme="@style/AppTheme.NoActionBar"
-    tools:context=".ChildrenActivity">
+    tools:context=".ui.children.ChildrenActivity">
 
 
     <ImageView
@@ -63,7 +63,7 @@
         android:layout_alignStart="@+id/textView6"
         android:layout_below="@+id/textView6"
         android:layout_marginTop="35dp"
-        android:text="20"
+        android:text="-"
         android:textSize="60sp" />
 
     <TextView

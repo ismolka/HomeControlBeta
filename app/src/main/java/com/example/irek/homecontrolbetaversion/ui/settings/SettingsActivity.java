@@ -1,4 +1,4 @@
-package com.example.irek.homecontrolbetaversion;
+package com.example.irek.homecontrolbetaversion.ui.settings;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,35 +10,58 @@ import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.SeekBar;
 
+import com.example.irek.homecontrolbetaversion.R;
+import com.example.irek.homecontrolbetaversion.ui.children.ChildrenActivity;
+import com.example.irek.homecontrolbetaversion.ui.connect.ConnectActivity;
+import com.example.irek.homecontrolbetaversion.ui.garden.GardenActivity;
+import com.example.irek.homecontrolbetaversion.ui.home.HomeActivity;
+import com.example.irek.homecontrolbetaversion.ui.login.LogonActivity;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static com.example.irek.homecontrolbetaversion.R.id.checkALERT;
 import static com.example.irek.homecontrolbetaversion.R.id.checkMOTION;
 import static com.example.irek.homecontrolbetaversion.R.id.checkTEMP;
 import static com.example.irek.homecontrolbetaversion.R.id.seekBarRangeTemperature;
-import static com.example.irek.homecontrolbetaversion.R.id.seekBarTemperature;
 
 public class SettingsActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, SettingsView {
 
-        CheckBox alertOK,alertTemp,alertMotion;
-        SeekBar seekRange;
+    @BindView(R.id.checkALERT) CheckBox alertOK;
+    @BindView(R.id.checkTEMP) CheckBox alertTemp;
+    @BindView(R.id.checkMOTION) CheckBox alertMotion;
+    @BindView(R.id.seekBarRangeTemperature) SeekBar seekRange;
+    @BindView(R.id.nav_view) NavigationView navigationView;
+    @BindView(R.id.drawer_layout) DrawerLayout drawer;
+
+    private SettingsPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        ButterKnife.bind(this);
 
         alertOK = (CheckBox)findViewById(checkALERT);
         alertMotion = (CheckBox)findViewById(checkMOTION);
         alertTemp = (CheckBox)findViewById(checkTEMP);
         seekRange = (SeekBar) findViewById(seekBarRangeTemperature);
+
+        initPresenter();
+        initView();
+    }
+
+    private void initView() { navigationView.setNavigationItemSelectedListener(this); }
+
+    private void initPresenter() {
+        presenter = new SettingsPresenter();
+        presenter.onAttach(this);
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -62,8 +85,8 @@ public class SettingsActivity extends AppCompatActivity
             Intent intent = new Intent(this, ChildrenActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_settings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
+            //Intent intent = new Intent(this, SettingsActivity.class);
+            //startActivity(intent);
         } else if (id == R.id.nav_connect) {
             Intent intent = new Intent(this, ConnectActivity.class);
             startActivity(intent);
@@ -72,7 +95,6 @@ public class SettingsActivity extends AppCompatActivity
             startActivity(intent);
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

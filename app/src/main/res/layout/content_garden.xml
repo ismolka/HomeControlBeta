@@ -70,11 +70,11 @@
         android:id="@+id/textViewCurrentHumidity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="20"
-        android:textSize="60sp"
-        android:layout_below="@+id/textView6"
         android:layout_alignStart="@+id/textView6"
-        android:layout_marginTop="33dp" />
+        android:layout_below="@+id/textView6"
+        android:layout_marginTop="33dp"
+        android:text="-"
+        android:textSize="60sp" />
 
     <TextView
         android:id="@+id/textView8"
