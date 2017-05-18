@@ -6,4 +6,5 @@ package com.example.irek.homecontrolbetaversion.ui.base;
 
 public interface IListenerFunctions {
     void refreshInterface();
+    void reefreshActionBarStatus(CharSequence cs);
 }

@@ -78,13 +78,13 @@ public class ConnectActivity extends AppCompatActivity
         } else if (id == R.id.nav_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_connect) {
+        }/* else if (id == R.id.nav_connect) {
             //Intent intent = new Intent(this, ConnectActivity.class);
             //startActivity(intent);
         } else if (id == R.id.nav_logon) {
             Intent intent = new Intent(this, LogonActivity.class);
             startActivity(intent);
-        }
+        }*/
 
         drawer.closeDrawer(GravityCompat.START);
         return true;

@@ -1,5 +1,6 @@
 package com.example.irek.homecontrolbetaversion.ui.garden;
 
+import android.app.ActionBar;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -117,6 +118,9 @@ public class GardenActivity extends AppCompatActivity
     }
 
     private void initView() {
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE);
+        setStatus("not connected");
+
         navigationView.setNavigationItemSelectedListener(this);
 
         seekHumi.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -182,7 +186,7 @@ public class GardenActivity extends AppCompatActivity
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
             finish();
-        } else if (id == R.id.nav_connect) {
+        } /*else if (id == R.id.nav_connect) {
             Intent intent = new Intent(this, ConnectActivity.class);
             startActivity(intent);
             finish();
@@ -190,7 +194,7 @@ public class GardenActivity extends AppCompatActivity
             Intent intent = new Intent(this, LogonActivity.class);
             startActivity(intent);
             finish();
-        }
+        }*/
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -230,6 +234,11 @@ public class GardenActivity extends AppCompatActivity
         public void refreshInterface() {
             Log.d(TAG, "activity's listener's callback was called");
             presenter.updateUI();
+        }
+
+        @Override
+        public void reefreshActionBarStatus(CharSequence cs) {
+            setStatus(cs);
         }
     };
 
@@ -307,5 +316,18 @@ public class GardenActivity extends AppCompatActivity
             }
             return null;
         }
+    }
+
+    /**
+     * Updates the status on the action bar.
+     *
+     * @param subTitle status
+     */
+    private void setStatus(CharSequence subTitle) {
+        final android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        if (null == actionBar) {
+            return;
+        }
+        actionBar.setSubtitle(subTitle);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.irek.homecontrolbetaversion.ui.settings;
 
+import com.example.irek.homecontrolbetaversion.data.model.SettingsPreferences;
 import com.example.irek.homecontrolbetaversion.ui.base.BaseView;
 
 /**
@@ -7,4 +8,5 @@ import com.example.irek.homecontrolbetaversion.ui.base.BaseView;
  */
 
 public interface SettingsView extends BaseView {
+    public void initViewFields(SettingsPreferences sp);
 }

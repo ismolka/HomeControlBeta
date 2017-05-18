@@ -25,7 +25,7 @@ public class App extends Application {
     public static final boolean ENCRYPTED = false;
 
     private DaoSession daoSession;
-    private SharedPrefManager sharedPrefManager;
+    private SharedPrefManager sharedPrefManager = null;
 
     @Override
     public void onCreate() {

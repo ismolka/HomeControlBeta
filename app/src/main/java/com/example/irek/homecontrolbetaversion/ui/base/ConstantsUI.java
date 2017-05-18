@@ -6,4 +6,5 @@ package com.example.irek.homecontrolbetaversion.ui.base;
 
 public interface ConstantsUI {
     public static final String [] DataToSendStringArr = {"prefTempDom", "czujnikRuchu", "zasilanieAnten", "oswietlenieDom", "uruchomienieZraszaczy", "blokadaBramy", "fontanna", "oswietlenieOgrodu", "prefTempDzieci", "jasnoscOswietlenia", "internetSwitch", "tvsatSwitch"};
+    public static final String [] userSettings = {"showNotifications", "notifyTemp", "tempPercentageDiff", "notifyMotion"};
 }

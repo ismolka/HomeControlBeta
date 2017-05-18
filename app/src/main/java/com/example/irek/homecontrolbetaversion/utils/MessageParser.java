@@ -45,6 +45,7 @@ public class MessageParser {
             dd.setTempDom(jo.getLong("tempDom"));
             dd.setWilgotnosc(jo.getLong("wilgotnosc"));
             dd.setTempPokojDzieci(jo.getLong("tempPokojDzieci"));
+            dd.setWykrytoRuch(jo.getBoolean("wykrytoRuch"));
         } catch (JSONException e) {
             e.printStackTrace();
             dd = null;

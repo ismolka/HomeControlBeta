@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.example.irek.homecontrolbetaversion.data.model.DataToSend;
+import com.example.irek.homecontrolbetaversion.data.model.SettingsPreferences;
 import com.example.irek.homecontrolbetaversion.ui.base.ConstantsUI;
 
 import java.util.Map;
@@ -18,6 +19,7 @@ public class SharedPrefManager {
 
     private SharedPreferences sharedPreferences;
     private DataToSend dts = null;
+    private SettingsPreferences settingsPreferences;
 
     public SharedPrefManager(Context context, String filename, int mode) {
         sharedPreferences = context.getSharedPreferences(filename, mode);
@@ -25,8 +27,29 @@ public class SharedPrefManager {
 
     public DataToSend getSharedPrefDataToSend() { return dts; }
 
+    public SettingsPreferences getUserSettings() { return settingsPreferences; }
+
     public void initDefSharedPref() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        for(String s : ConstantsUI.userSettings) {
+            if(!sharedPreferences.contains(s)) {
+                switch (s) {
+                    case "showNotifications":
+                        editor.putBoolean(s, false);
+                        break;
+                    case "notifyTemp":
+                        editor.putBoolean(s, false);
+                        break;
+                    case "tempPercentageDiff":
+                        editor.putLong(s, 10);
+                        break;
+                    case "notifyMotion":
+                        editor.putBoolean(s, false);
+                        break;
+                }
+            }
+        }
 
         for(String s : ConstantsUI.DataToSendStringArr) {
             if(!sharedPreferences.contains(s)) {
@@ -45,6 +68,7 @@ public class SharedPrefManager {
 
     private void initDts() {
         dts = new DataToSend();
+        settingsPreferences = new SettingsPreferences();
         updateDts(sharedPreferences.getAll());
     }
 
@@ -87,6 +111,18 @@ public class SharedPrefManager {
                 case "tvsatSwitch":
                     dts.setTvsatSwitch((Boolean) entry.getValue());
                     break;
+                case "showNotifications":
+                    settingsPreferences.setShowNotifications((Boolean) entry.getValue());
+                    break;
+                case "notifyTemp":
+                    settingsPreferences.setNotifyTemp((Boolean) entry.getValue());
+                    break;
+                case "tempPercentageDiff":
+                    settingsPreferences.setTempPercentageDiff((Long) entry.getValue());
+                    break;
+                case "notifyMotion":
+                    settingsPreferences.setNotifyMotion((Boolean) entry.getValue());
+                    break;
             }
         }
     }
@@ -107,6 +143,19 @@ public class SharedPrefManager {
         editor.putLong("jasnoscOswietlenia", dts.getJasnoscOswietlenia());
         editor.putBoolean("internetSwitch", dts.isInternetSwitch());
         editor.putBoolean("tvsatSwitch", dts.isTvsatSwitch());
+
+        editor.commit();
+        Log.d(TAG, "saving completed");
+    }
+
+    public void saveUserSettings() {
+        Log.d(TAG, "saving user settings in android memory");
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putBoolean("showNotifications", settingsPreferences.isShowNotifications());
+        editor.putBoolean("notifyTemp", settingsPreferences.isNotifyTemp());
+        editor.putLong("tempPercentageDiff", settingsPreferences.getTempPercentageDiff());
+        editor.putBoolean("notifyMotion", settingsPreferences.isNotifyMotion());
 
         editor.commit();
         Log.d(TAG, "saving completed");

@@ -1,5 +1,6 @@
 package com.example.irek.homecontrolbetaversion.ui.home;
 
+import android.app.ActionBar;
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -119,6 +120,9 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void initView() {
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE);
+        setStatus("not connected");
+
         navigationView.setNavigationItemSelectedListener(this);
 
         seekTemp.setMax((maxSeek - minSeek) / stepSeek);
@@ -140,7 +144,9 @@ public class HomeActivity extends AppCompatActivity
                     Log.d(TAG, "onSwitch - service is not bounded yet");
                     return;
                 }
-                Long value = (long) seekBar.getProgress();
+                Long progress = (long) seekBar.getProgress();
+                Long value = minSeek + (progress * stepSeek);
+                Log.d(TAG, "prefTempDom: " + value);
                 Log.d(TAG, "onStopTrackingTouchControlTemp updating sharedPrfDts");
                 Map<String, Long> map = new HashMap<>();
                 map.put("prefTempDom", value);
@@ -186,7 +192,7 @@ public class HomeActivity extends AppCompatActivity
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
             finish();
-        } else if (id == R.id.nav_connect) {
+        }/* else if (id == R.id.nav_connect) {
             Intent intent = new Intent(this, ConnectActivity.class);
             startActivity(intent);
             finish();
@@ -194,7 +200,7 @@ public class HomeActivity extends AppCompatActivity
             Intent intent = new Intent(this, LogonActivity.class);
             startActivity(intent);
             finish();
-        }
+        }*/
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -234,6 +240,11 @@ public class HomeActivity extends AppCompatActivity
         public void refreshInterface() {
             Log.d(TAG, "activity's listener's callback was called");
             presenter.updateUI();
+        }
+
+        @Override
+        public void reefreshActionBarStatus(CharSequence cs) {
+            setStatus(cs);
         }
     };
 
@@ -283,7 +294,8 @@ public class HomeActivity extends AppCompatActivity
     public void initViewFields(DataToSend dts){
         Log.d(TAG, "initializing view fileds from shared pref");
         controlTemp.setText(String.valueOf(dts.getPrefTempDom()));
-        seekTemp.setProgress(dts.getPrefTempDom().intValue());
+        int progress = (dts.getPrefTempDom().intValue()-minSeek)/stepSeek;
+        seekTemp.setProgress(progress);
         switchAntena.setChecked(dts.isZasilanieAnten());
         switchLampa.setChecked(dts.isOswietlenieDom());
         switchRuch.setChecked(dts.isCzujnikRuchu());
@@ -311,5 +323,21 @@ public class HomeActivity extends AppCompatActivity
             }
             return null;
         }
+    }
+
+    /**
+     * Updates the status on the action bar.
+     *
+     * @param subTitle status
+     */
+    private void setStatus(CharSequence subTitle) {
+        if (null == this) {
+            return;
+        }
+        final android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        if (null == actionBar) {
+            return;
+        }
+        actionBar.setSubtitle(subTitle);
     }
 }

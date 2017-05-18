@@ -35,7 +35,7 @@ public class BluetoothChatService {
     // phone insecure UUID.fromString("8ce255c0-200a-11e0-ac64-0800200c9a66");
     // Arduino insecure UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private static final UUID MY_UUID_INSECURE =
-            UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+            UUID.fromString("8ce255c0-200a-11e0-ac64-0800200c9a66");
 
     // Member fields
     private final BluetoothAdapter mAdapter;
@@ -112,8 +112,9 @@ public class BluetoothChatService {
             mInsecureAcceptThread = new AcceptThread(false);
             mInsecureAcceptThread.start();
         }*/
+
         // Update UI title
-        //updateUserInterfaceTitle();
+        updateUserInterfaceTitle();
     }
 
     /**
@@ -142,8 +143,9 @@ public class BluetoothChatService {
         // Start the thread to connect with the given device
         mConnectThread = new ConnectThread(device, secure);
         mConnectThread.start();
+
         // Update UI title
-        //updateUserInterfaceTitle();
+        updateUserInterfaceTitle();
     }
 
     /**
@@ -188,8 +190,9 @@ public class BluetoothChatService {
         bundle.putString(Constants.DEVICE_NAME, device.getName());
         msg.setData(bundle);
         mHandler.sendMessage(msg);
+
         // Update UI title
-        //updateUserInterfaceTitle();
+        updateUserInterfaceTitle();
     }
 
     /**
@@ -218,8 +221,9 @@ public class BluetoothChatService {
             mInsecureAcceptThread = null;
         }*/
         mState = STATE_NONE;
+
         // Update UI title
-        //updateUserInterfaceTitle();
+        updateUserInterfaceTitle();
     }
 
     /**
@@ -252,8 +256,9 @@ public class BluetoothChatService {
         mHandler.sendMessage(msg);
 
         mState = STATE_NONE;
+
         // Update UI title
-        //updateUserInterfaceTitle();
+        updateUserInterfaceTitle();
 
         // Start the service over to restart listening mode
         //BluetoothChatService.this.start();
@@ -272,8 +277,9 @@ public class BluetoothChatService {
         mHandler.sendMessage(msg);
 
         mState = STATE_NONE;
+
         // Update UI title
-        //updateUserInterfaceTitle();
+        updateUserInterfaceTitle();
 
         // Start the service over to restart listening mode
         //BluetoothChatService.this.start();

@@ -1,5 +1,6 @@
 package com.example.irek.homecontrolbetaversion.ui.children;
 
+import android.app.ActionBar;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -114,6 +115,9 @@ public class ChildrenActivity extends AppCompatActivity
     }
 
     private void initView() {
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE);
+        setStatus("not connected");
+
         navigationView.setNavigationItemSelectedListener(this);
 
         controlTemp.setMax((maxSeek -minSeek) / stepSeek);
@@ -135,7 +139,9 @@ public class ChildrenActivity extends AppCompatActivity
                     Log.d(TAG, "onSwitch - service is not bounded yet");
                     return;
                 }
-                Long value = (long) seekBar.getProgress();
+                Long progress = (long) seekBar.getProgress();
+                Long value = minSeek + (progress * stepSeek);
+                Log.d(TAG, "prefTempDzieci: " + value);
                 Log.d(TAG, "onStopTrackingTouchControlTemp updating sharedPrfDts");
                 Map<String, Long> map = new HashMap<>();
                 map.put("prefTempDzieci", value);
@@ -208,7 +214,7 @@ public class ChildrenActivity extends AppCompatActivity
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
             finish();
-        } else if (id == R.id.nav_connect) {
+        } /*else if (id == R.id.nav_connect) {
             Intent intent = new Intent(this, ConnectActivity.class);
             startActivity(intent);
             finish();
@@ -216,7 +222,7 @@ public class ChildrenActivity extends AppCompatActivity
             Intent intent = new Intent(this, LogonActivity.class);
             startActivity(intent);
             finish();
-        }
+        }*/
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -256,6 +262,11 @@ public class ChildrenActivity extends AppCompatActivity
             Log.d(TAG, "activity's listener's callback was called");
             presenter.updateUI();
         }
+
+        @Override
+        public void reefreshActionBarStatus(CharSequence cs) {
+            setStatus(cs);
+        }
     };
 
     @OnCheckedChanged(R.id.switchNetworkChild)
@@ -292,7 +303,8 @@ public class ChildrenActivity extends AppCompatActivity
         controlLightInfo.setText(String.valueOf(dts.getJasnoscOswietlenia()));
         controlLight.setProgress(dts.getJasnoscOswietlenia().intValue());
         controlTempChild.setText(String.valueOf(dts.getPrefTempDzieci()));
-        controlTemp.setProgress(dts.getPrefTempDzieci().intValue());
+        int progress = (dts.getPrefTempDzieci().intValue()-minSeek)/stepSeek;
+        controlTemp.setProgress(progress);
         switchINTERNET.setChecked(dts.isInternetSwitch());
         switchTVSAT.setChecked(dts.isTvsatSwitch());
     }
@@ -319,5 +331,18 @@ public class ChildrenActivity extends AppCompatActivity
             }
             return null;
         }
+    }
+
+    /**
+     * Updates the status on the action bar.
+     *
+     * @param subTitle status
+     */
+    private void setStatus(CharSequence subTitle) {
+        final android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        if (null == actionBar) {
+            return;
+        }
+        actionBar.setSubtitle(subTitle);
     }
 }

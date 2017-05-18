@@ -22,13 +22,16 @@ public class DeviceData {
     // pokoj dziecka
     private Long tempPokojDzieci;
 
-    @Generated(hash = 1046203887)
-    public DeviceData(Long id, Long tempDom, Long wilgotnosc,
-            Long tempPokojDzieci) {
+    private boolean wykrytoRuch;
+
+    @Generated(hash = 574969081)
+    public DeviceData(Long id, Long tempDom, Long wilgotnosc, Long tempPokojDzieci,
+            boolean wykrytoRuch) {
         this.id = id;
         this.tempDom = tempDom;
         this.wilgotnosc = wilgotnosc;
         this.tempPokojDzieci = tempPokojDzieci;
+        this.wykrytoRuch = wykrytoRuch;
     }
 
     @Generated(hash = 929507321)
@@ -69,5 +72,17 @@ public class DeviceData {
 
     public void setTempDom(Long tempDom) {
         this.tempDom = tempDom;
+    }
+
+    public boolean isWykrytoRuch() {
+        return wykrytoRuch;
+    }
+
+    public void setWykrytoRuch(boolean wykrytoRuch) {
+        this.wykrytoRuch = wykrytoRuch;
+    }
+
+    public boolean getWykrytoRuch() {
+        return this.wykrytoRuch;
     }
 }

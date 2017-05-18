@@ -17,10 +17,14 @@ import com.example.irek.homecontrolbetaversion.data.model.DaoSession;
 import com.example.irek.homecontrolbetaversion.data.model.DeviceData;
 import com.example.irek.homecontrolbetaversion.data.model.DeviceDataDao;
 import com.example.irek.homecontrolbetaversion.data.model.Request;
+import com.example.irek.homecontrolbetaversion.data.model.SettingsPreferences;
 import com.example.irek.homecontrolbetaversion.ui.base.IListenerFunctions;
 import com.example.irek.homecontrolbetaversion.utils.MessageParser;
+import com.example.irek.homecontrolbetaversion.utils.SharedPrefManager;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
+
+import java.util.Map;
 
 /**
  * Created by Wojtek on 27.04.2017.
@@ -34,7 +38,7 @@ public class BTService extends Service {
     private BluetoothAdapter mBluetoothAdapter = null;
     private BluetoothChatService mBluetoothChatService = null;
     private String mConnectedDeviceName = null;
-    private String deviceMACAddress = "20:16:11:07:59:62"; // mama tel mac addr: 3C:BB:FD:6E:DF:F2 ; irek mac addr: 20:16:11:07:59:62
+    private String deviceMACAddress = "3C:BB:FD:6E:DF:F2"; // mama tel mac addr: 3C:BB:FD:6E:DF:F2 ; irek mac addr: 20:16:11:07:59:62
     private Thread mThread = null;
     private Thread requestThread = null;
 
@@ -44,6 +48,9 @@ public class BTService extends Service {
 
     private Request requestModel = new Request("getdata");
     private String requestJson = "null";
+
+    private SettingsPreferences settingsPreferences;
+    private SharedPrefManager sharedPrefManager;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -68,6 +75,10 @@ public class BTService extends Service {
 
         DaoSession daoSession = ((App) getApplication()).getDaoSession();
         deviceDataDao = daoSession.getDeviceDataDao();
+
+        sharedPrefManager = ((App) getApplication()).getSharedPrefManager();
+        settingsPreferences = sharedPrefManager.getUserSettings();
+
 
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         mBluetoothChatService = new BluetoothChatService(getApplicationContext(), mHandler);
@@ -161,18 +172,23 @@ public class BTService extends Service {
             //FragmentActivity activity = getActivity();
             switch (msg.what) {
                 case Constants.MESSAGE_STATE_CHANGE:
-                    switch (msg.arg1) {
-                        case BluetoothChatService.STATE_CONNECTED:
-                            //setStatus(getString(R.string.title_connected_to, mConnectedDeviceName));
-                            //mConversationArrayAdapter.clear();
-                            break;
-                        case BluetoothChatService.STATE_CONNECTING:
-                            //setStatus(R.string.title_connecting);
-                            break;
-                        case BluetoothChatService.STATE_LISTEN:
-                        case BluetoothChatService.STATE_NONE:
-                            //setStatus(R.string.title_not_connected);
-                            break;
+                    if (mCallback != null) {
+                        switch (msg.arg1) {
+                            case BluetoothChatService.STATE_CONNECTED:
+                                mCallback.reefreshActionBarStatus("connected");
+                                //setStatus(getString(R.string.title_connected_to, mConnectedDeviceName));
+                                //mConversationArrayAdapter.clear();
+                                break;
+                            case BluetoothChatService.STATE_CONNECTING:
+                                mCallback.reefreshActionBarStatus("connecting...");
+                                //setStatus(R.string.title_connecting);
+                                break;
+                            case BluetoothChatService.STATE_LISTEN:
+                            case BluetoothChatService.STATE_NONE:
+                                mCallback.reefreshActionBarStatus("not connected");
+                                //setStatus(R.string.title_not_connected);
+                                break;
+                        }
                     }
                     break;
                 case Constants.MESSAGE_WRITE:
@@ -235,6 +251,9 @@ public class BTService extends Service {
             if(model != null) {
                 deviceDataDao.insert(model);
                 Log.d(TAG, "Inserted new note, ID: " + model.getId());
+                if(settingsPreferences.isShowNotifications()) {
+                    checkNotificationConditions(model);
+                }
                 if(mCallback != null) {
                     Log.d(TAG, "calling activity to refresh interface");
 
@@ -256,5 +275,29 @@ public class BTService extends Service {
         }
         Log.d(TAG, "message to device: " + message.toString());
         mBluetoothChatService.write(message);
+    }
+
+    private void checkNotificationConditions(DeviceData data) {
+        Log.d(TAG, "checkNotificationConditions");
+        if(settingsPreferences.isNotifyTemp()) {
+            int diff = Math.abs((int) ((data.getTempDom() * 100) / sharedPrefManager.getSharedPrefDataToSend().getPrefTempDom() - 100));
+            Log.d(TAG, "diff = " + diff);
+            if(diff >= settingsPreferences.getTempPercentageDiff()) {
+                Log.d(TAG, "sending notfity temp intent");
+                sendBroadcast(getBroadcastIntent(Constants.NOTIFY_TEMP));
+            }
+        }
+        if(settingsPreferences.isNotifyMotion()) {
+            Log.d(TAG, "sending notify motion intent");
+            if(data.isWykrytoRuch())
+                sendBroadcast(getBroadcastIntent(Constants.NOTIFY_RUCH));
+        }
+    }
+
+    private Intent getBroadcastIntent(int extraInt) {
+        Intent intent = new Intent();
+        intent.setAction(Constants.INTENT_NOTIFY_ACTION);
+        intent.putExtra("notificationType", extraInt);
+        return intent;
     }
 }

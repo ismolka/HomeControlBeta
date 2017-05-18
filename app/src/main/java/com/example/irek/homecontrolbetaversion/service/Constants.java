@@ -18,4 +18,7 @@ public interface Constants {
     public static final String DEVICE_NAME = "device_name";
     public static final String TOAST = "toast";
 
+    public static final String INTENT_NOTIFY_ACTION = "com.example.irek.homecontrolbeta.broadcast.NOTIFY_USER";
+    public static final int NOTIFY_TEMP = 7;
+    public static final int NOTIFY_RUCH = 8;
 }
