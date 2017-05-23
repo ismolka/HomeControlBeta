@@ -103,7 +103,7 @@ public class HomeActivity extends AppCompatActivity
         updateUITask.cancel(true);
 
         if(mBound) {
-            mService.unregisterCallback();
+            mService.unregisterCallback(HomeActivity.this);
             unbindService(mConnection);
             mBound = false;
             mService = null;
@@ -218,7 +218,7 @@ public class HomeActivity extends AppCompatActivity
             mService = binder.getService();
             mBound = true;
             mService.testujemy();
-            mService.registerCallback(listener);
+            mService.registerCallback(HomeActivity.this, listener);
             Log.d(TAG, "First write to device after estabilishing connection");
             mService.writeToDevice(presenter.getDtsJSONBytesArray());
         }

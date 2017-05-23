@@ -1,5 +1,6 @@
 package com.example.irek.homecontrolbetaversion.service;
 
+import android.app.Activity;
 import android.os.Binder;
 
 import com.example.irek.homecontrolbetaversion.ui.base.IListenerFunctions;
@@ -19,11 +20,11 @@ public class ServiceBinder extends Binder {
         return service;
     }
 
-    public void registerCallback(IListenerFunctions mCallback) {
-        service.registerCallback(mCallback);
+    public void registerCallback(Activity activity, IListenerFunctions mCallback) {
+        service.registerCallback(activity, mCallback);
     }
 
-    public void unregisterCallback() {
-        service.unregisterCallback();
+    public void unregisterCallback(Activity activity) {
+        service.unregisterCallback(activity);
     }
 }

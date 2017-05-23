@@ -395,12 +395,32 @@ public class BluetoothChatService {
 
         public void run() {
             Log.i(TAG, "BEGIN mConnectedThread");
-            //byte[] buffer = new byte[1024];
-            //int bytes;
+            byte[] buffer = new byte[1024];
+            int counter = 0;
+            int bytes;
+
+            StringBuilder sb = new StringBuilder();
 
             // Keep listening to the InputStream while connected
             while (mState == STATE_CONNECTED) {
                 try {
+
+                    bytes = mmInStream.read();
+                    if(bytes != -1 && bytes != (byte)0x7D) {
+                        buffer[counter] = (byte)bytes;
+                        counter++;
+                    } else {
+                        buffer[counter] = (byte)bytes;
+                        counter++;
+                        if(counter > 2) {
+                            mHandler.obtainMessage(Constants.MESSAGE_READ, counter, -1, buffer)
+                                    .sendToTarget();
+                        }
+                        buffer = new byte[1024];
+                        counter = 0;
+                    }
+
+                    /*
                     byte[] buffer = new byte[1024];
                     int bytes;
 
@@ -410,6 +430,8 @@ public class BluetoothChatService {
                     // Send the obtained bytes to the UI Activity
                     mHandler.obtainMessage(Constants.MESSAGE_READ, bytes, -1, buffer)
                             .sendToTarget();
+
+                    */
                 } catch (IOException e) {
                     Log.e(TAG, "disconnected", e);
                     connectionLost();

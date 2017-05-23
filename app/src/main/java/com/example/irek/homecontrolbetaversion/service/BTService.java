@@ -1,5 +1,6 @@
 package com.example.irek.homecontrolbetaversion.service;
 
+import android.app.Activity;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -25,6 +26,7 @@ import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by Wojtek on 27.04.2017.
@@ -44,7 +46,7 @@ public class BTService extends Service {
 
     private DeviceDataDao deviceDataDao;
 
-    private IListenerFunctions mCallback = null;
+    private Map<Activity, IListenerFunctions> mCallbacks = new ConcurrentHashMap<Activity, IListenerFunctions>();
 
     private Request requestModel = new Request("getdata");
     private String requestJson = "null";
@@ -144,14 +146,27 @@ public class BTService extends Service {
         }
     }
 
-    public void registerCallback(IListenerFunctions callback) {
-        this.mCallback = callback;
+    public void registerCallback(Activity activity, IListenerFunctions callback) {
+        mCallbacks.put(activity, callback);
         Log.d(TAG, "callback registered");
+
+        switch(mBluetoothChatService.getState()) {
+            case BluetoothChatService.STATE_CONNECTED:
+                callback.reefreshActionBarStatus("connected");
+                break;
+            case BluetoothChatService.STATE_CONNECTING:
+                callback.reefreshActionBarStatus("connecting...");
+                break;
+            case BluetoothChatService.STATE_LISTEN:
+            case BluetoothChatService.STATE_NONE:
+                callback.reefreshActionBarStatus("not connected");
+                break;
+        }
     }
 
-    public void unregisterCallback() {
+    public void unregisterCallback(Activity activity) {
         Log.d(TAG, "unregistering callback");
-        this.mCallback = null;
+        this.mCallbacks.remove(activity);
     }
 
     public void testujemy() {
@@ -172,20 +187,21 @@ public class BTService extends Service {
             //FragmentActivity activity = getActivity();
             switch (msg.what) {
                 case Constants.MESSAGE_STATE_CHANGE:
-                    if (mCallback != null) {
+                    for(Activity client : mCallbacks.keySet()) {
+                        IListenerFunctions callback = mCallbacks.get(client);
                         switch (msg.arg1) {
                             case BluetoothChatService.STATE_CONNECTED:
-                                mCallback.reefreshActionBarStatus("connected");
+                                callback.reefreshActionBarStatus("connected");
                                 //setStatus(getString(R.string.title_connected_to, mConnectedDeviceName));
                                 //mConversationArrayAdapter.clear();
                                 break;
                             case BluetoothChatService.STATE_CONNECTING:
-                                mCallback.reefreshActionBarStatus("connecting...");
+                                callback.reefreshActionBarStatus("connecting...");
                                 //setStatus(R.string.title_connecting);
                                 break;
                             case BluetoothChatService.STATE_LISTEN:
                             case BluetoothChatService.STATE_NONE:
-                                mCallback.reefreshActionBarStatus("not connected");
+                                callback.reefreshActionBarStatus("not connected");
                                 //setStatus(R.string.title_not_connected);
                                 break;
                         }
@@ -254,10 +270,9 @@ public class BTService extends Service {
                 if(settingsPreferences.isShowNotifications()) {
                     checkNotificationConditions(model);
                 }
-                if(mCallback != null) {
+                for(Activity client : mCallbacks.keySet()) {
                     Log.d(TAG, "calling activity to refresh interface");
-
-                    mCallback.refreshInterface();
+                    mCallbacks.get(client).refreshInterface();
                 }
             } else {
                 Log.d(TAG, "received corrupted message");

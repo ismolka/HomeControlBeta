@@ -98,7 +98,7 @@ public class ChildrenActivity extends AppCompatActivity
         updateUITask.cancel(true);
 
         if(mBound) {
-            mService.unregisterCallback();
+            mService.unregisterCallback(ChildrenActivity.this);
             unbindService(mConnection);
             mBound = false;
             mService = null;
@@ -239,7 +239,7 @@ public class ChildrenActivity extends AppCompatActivity
             mService = binder.getService();
             mBound = true;
             mService.testujemy();
-            mService.registerCallback(listener);
+            mService.registerCallback(ChildrenActivity.this, listener);
             Log.d(TAG, "First write to device after estabilishing connection");
             mService.writeToDevice(presenter.getDtsJSONBytesArray());
         }
