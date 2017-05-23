@@ -1,0 +1,4 @@
+{"tempDom":22, "wilgotnosc":40, "tempPokojDzieci":20, "wykrytoRuch": true}
+
+
+// Podstawic w miejsce liczb wartosci z czujnikow

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/background_light"
     android:theme="@style/AppTheme.NoActionBar"
-    tools:context=".LogonActivity">
+    tools:context=".ui.login.LogonActivity">
 
 
     <ImageView

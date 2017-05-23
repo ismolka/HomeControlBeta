@@ -1,0 +1,3 @@
+{"type":"getdata"}
+
+// Aplikacja wysy≥a przez BT do arduino proübe o aktualne dane

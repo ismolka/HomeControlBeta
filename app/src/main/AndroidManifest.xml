@@ -3,21 +3,20 @@
     package="com.example.irek.homecontrolbetaversion">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme">
         <activity
-            android:name=".HomeActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name=".ui.home.HomeActivity"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,25 +24,31 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GardenActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".ui.garden.GardenActivity"
+            android:label="@string/app_name" />
         <activity
-            android:name=".ChildrenActivity"
+            android:name=".ui.children.ChildrenActivity"
+            android:label="@string/app_name" />
+        <!--<activity
+            android:name=".ui.login.LogonActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" />-->
         <activity
-            android:name=".LogonActivity"
+            android:name=".ui.settings.SettingsActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".SettingsActivity"
+        <!--<activity
+            android:name=".ui.connect.ConnectActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ConnectActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" />-->
+
+        <service android:name=".service.BTService"
+            android:exported="false" />
+        <receiver android:name=".broadcastreceiver.BTBroadcastReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.irek.homecontrolbeta.broadcast.NOTIFY_USER" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
